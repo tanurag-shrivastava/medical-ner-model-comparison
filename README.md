@@ -122,12 +122,11 @@ project/
 │   └── streamlit_app.py           # Interactive web UI
 ├── outputs/
 │   ├── models/                    # Saved model checkpoints
-│   ├── results/                   # Evaluation metrics + ROC curves
+│   ├── results/                   # Evaluation metrics (JSON)
 │   └── splits/                    # Train/val/test BIO-tagged JSON files
 ├── prepare_data.py                # One-time data preparation
 ├── run_bilstm.py                  # Train BiLSTM-CRF
 ├── run_biobert.py                 # Fine-tune BioBERT
-├── plot_roc.py                    # Generate ROC/AUC curves
 └── requirements.txt
 ```
 

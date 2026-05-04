@@ -308,6 +308,7 @@ project/
 │   │   ├── bilstm_metrics.json
 │   │   ├── biobert_metrics.json
 │   │   └── comparison.json        # Side-by-side comparison
+
 │   └── splits/
 │       ├── train_tagged.json      # 6,433 BIO-tagged sentences
 │       ├── val_tagged.json        # 1,378 BIO-tagged sentences
@@ -316,10 +317,6 @@ project/
 ├── prepare_data.py                # Run once: loads, cleans, splits, tags data
 ├── run_bilstm.py                  # Train BiLSTM-CRF
 ├── run_biobert.py                 # Fine-tune BioBERT
-├── eval_bilstm.py                 # Evaluate saved BiLSTM-CRF
-├── make_comparison.py             # Generate comparison.json
-├── verify.py                      # Check all outputs exist and models load
-├── train.py                       # All-in-one training pipeline
 ├── requirements.txt
 └── PROJECT_EXPLANATION.md         # This file
 ```
