@@ -1,0 +1,20 @@
+{
+  "Rule-Based": {
+    "precision": 0.778,
+    "recall": 1.0,
+    "f1": 0.8751,
+    "accuracy": 0.8680070561913777
+  },
+  "BiLSTM-CRF": {
+    "precision": 0.9797,
+    "recall": 0.9797,
+    "f1": 0.9797,
+    "accuracy": 0.9565149298683418
+  },
+  "BioBERT": {
+    "precision": 0.8774,
+    "recall": 0.7988,
+    "f1": 0.8363,
+    "accuracy": 0.915131227949402
+  }
+}

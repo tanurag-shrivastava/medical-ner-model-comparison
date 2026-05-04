@@ -1,0 +1,12 @@
+{
+  "model_type": "rule_based",
+  "num_context_rules": 7,
+  "num_regex_patterns": 10,
+  "gazetteer_sizes": {
+    "DISEASE": 101,
+    "SYMPTOM": 129,
+    "DRUG": 146,
+    "PROCEDURE": 86,
+    "ANATOMY": 149
+  }
+}

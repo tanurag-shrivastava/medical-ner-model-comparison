@@ -1,0 +1,203 @@
+"""
+Abbreviation Expansion Module
+Expands common medical abbreviations before NER processing.
+"""
+
+MEDICAL_ABBREVIATIONS = {
+    # Vitals
+    "BP": "Blood Pressure",
+    "HR": "Heart Rate",
+    "RR": "Respiratory Rate",
+    "Temp": "Temperature",
+    "SpO2": "Oxygen Saturation",
+    "BMI": "Body Mass Index",
+    "Wt": "Weight",
+    "Ht": "Height",
+    # Diseases / Conditions
+    "DM": "Diabetes Mellitus",
+    "DM2": "Type 2 Diabetes Mellitus",
+    "HTN": "Hypertension",
+    "CAD": "Coronary Artery Disease",
+    "CHF": "Congestive Heart Failure",
+    "COPD": "Chronic Obstructive Pulmonary Disease",
+    "CKD": "Chronic Kidney Disease",
+    "CVA": "Cerebrovascular Accident",
+    "MI": "Myocardial Infarction",
+    "PE": "Pulmonary Embolism",
+    "DVT": "Deep Vein Thrombosis",
+    "GERD": "Gastroesophageal Reflux Disease",
+    "UTI": "Urinary Tract Infection",
+    "URI": "Upper Respiratory Infection",
+    "RA": "Rheumatoid Arthritis",
+    "OA": "Osteoarthritis",
+    "AF": "Atrial Fibrillation",
+    "A-fib": "Atrial Fibrillation",
+    "Afib": "Atrial Fibrillation",
+    "NIDDM": "Non-Insulin Dependent Diabetes Mellitus",
+    "IDDM": "Insulin Dependent Diabetes Mellitus",
+    "PVD": "Peripheral Vascular Disease",
+    "TIA": "Transient Ischemic Attack",
+    "OSA": "Obstructive Sleep Apnea",
+    "PTSD": "Post-Traumatic Stress Disorder",
+    "IBD": "Inflammatory Bowel Disease",
+    "IBS": "Irritable Bowel Syndrome",
+    "MS": "Multiple Sclerosis",
+    "SLE": "Systemic Lupus Erythematosus",
+    "TB": "Tuberculosis",
+    "HIV": "Human Immunodeficiency Virus",
+    "AIDS": "Acquired Immunodeficiency Syndrome",
+    # Symptoms
+    "SOB": "Shortness of Breath",
+    "CP": "Chest Pain",
+    "HA": "Headache",
+    "N/V": "Nausea and Vomiting",
+    "N/V/D": "Nausea Vomiting and Diarrhea",
+    "abd": "abdominal",
+    "Abd": "Abdominal",
+    "ABD": "Abdominal",
+    "c/o": "complains of",
+    "h/o": "history of",
+    "H/O": "History of",
+    "s/p": "status post",
+    "S/P": "Status Post",
+    # Drugs / Medications
+    "ASA": "Aspirin",
+    "APAP": "Acetaminophen",
+    "HCTZ": "Hydrochlorothiazide",
+    "MTX": "Methotrexate",
+    "PCN": "Penicillin",
+    "TMP-SMX": "Trimethoprim-Sulfamethoxazole",
+    "NTG": "Nitroglycerin",
+    "PPI": "Proton Pump Inhibitor",
+    "NSAID": "Non-Steroidal Anti-Inflammatory Drug",
+    "NSAIDs": "Non-Steroidal Anti-Inflammatory Drugs",
+    "ACE": "Angiotensin Converting Enzyme",
+    "ARB": "Angiotensin Receptor Blocker",
+    "CCB": "Calcium Channel Blocker",
+    "BB": "Beta Blocker",
+    "IV": "Intravenous",
+    "IM": "Intramuscular",
+    "PO": "Per Oral",
+    "SQ": "Subcutaneous",
+    "SL": "Sublingual",
+    "PRN": "As Needed",
+    "QD": "Once Daily",
+    "BID": "Twice Daily",
+    "TID": "Three Times Daily",
+    "QID": "Four Times Daily",
+    "QHS": "Every Bedtime",
+    # Procedures / Tests
+    "EKG": "Electrocardiogram",
+    "ECG": "Electrocardiogram",
+    "CBC": "Complete Blood Count",
+    "BMP": "Basic Metabolic Panel",
+    "CMP": "Comprehensive Metabolic Panel",
+    "LFT": "Liver Function Test",
+    "LFTs": "Liver Function Tests",
+    "TFT": "Thyroid Function Test",
+    "TFTs": "Thyroid Function Tests",
+    "UA": "Urinalysis",
+    "CXR": "Chest X-Ray",
+    "CT": "Computed Tomography",
+    "MRI": "Magnetic Resonance Imaging",
+    "US": "Ultrasound",
+    "PFT": "Pulmonary Function Test",
+    "PFTs": "Pulmonary Function Tests",
+    "ABG": "Arterial Blood Gas",
+    "LP": "Lumbar Puncture",
+    "EEG": "Electroencephalogram",
+    "EMG": "Electromyogram",
+    "ECHO": "Echocardiogram",
+    "Echo": "Echocardiogram",
+    "Cath": "Catheterization",
+    "CABG": "Coronary Artery Bypass Graft",
+    "PTCA": "Percutaneous Transluminal Coronary Angioplasty",
+    "PCI": "Percutaneous Coronary Intervention",
+    # Anatomy
+    "RUQ": "Right Upper Quadrant",
+    "LUQ": "Left Upper Quadrant",
+    "RLQ": "Right Lower Quadrant",
+    "LLQ": "Left Lower Quadrant",
+    "LV": "Left Ventricle",
+    "RV": "Right Ventricle",
+    "LA": "Left Atrium",
+    "RA_anat": "Right Atrium",
+    "CNS": "Central Nervous System",
+    "PNS": "Peripheral Nervous System",
+    "GI": "Gastrointestinal",
+    "GU": "Genitourinary",
+    "MSK": "Musculoskeletal",
+    "ENT": "Ear Nose and Throat",
+    "HEENT": "Head Eyes Ears Nose and Throat",
+    # General
+    "Hx": "History",
+    "HX": "History",
+    "Dx": "Diagnosis",
+    "DX": "Diagnosis",
+    "Rx": "Prescription",
+    "RX": "Prescription",
+    "Tx": "Treatment",
+    "TX": "Treatment",
+    "Sx": "Symptoms",
+    "SX": "Symptoms",
+    "Fx": "Fracture",
+    "FX": "Fracture",
+    "PMH": "Past Medical History",
+    "PSH": "Past Surgical History",
+    "FH": "Family History",
+    "SH": "Social History",
+    "HPI": "History of Present Illness",
+    "CC": "Chief Complaint",
+    "ROS": "Review of Systems",
+    "PE_exam": "Physical Examination",
+    "A/P": "Assessment and Plan",
+    "w/o": "without",
+    "w/": "with",
+    "y/o": "year old",
+    "yo": "year old",
+    "F": "Female",
+    "M": "Male",
+    "pt": "patient",
+    "Pt": "Patient",
+    "PT": "Patient",
+    "dz": "disease",
+    "Dz": "Disease",
+    "sx": "symptoms",
+    "hx": "history",
+    "dx": "diagnosis",
+    "rx": "prescription",
+    "tx": "treatment",
+    "fx": "fracture",
+    "WNL": "Within Normal Limits",
+    "NAD": "No Acute Distress",
+    "A&O": "Alert and Oriented",
+    "A&Ox3": "Alert and Oriented Times Three",
+    "WDWN": "Well Developed Well Nourished",
+    "NKDA": "No Known Drug Allergies",
+    "NKA": "No Known Allergies",
+}
+
+
+def expand_abbreviations(text: str) -> str:
+    """
+    Expand medical abbreviations in text.
+    Uses word-boundary matching to avoid partial replacements.
+    """
+    import re
+    if not isinstance(text, str):
+        return text
+
+    # Sort by length descending to match longer abbreviations first
+    sorted_abbrevs = sorted(MEDICAL_ABBREVIATIONS.items(), key=lambda x: len(x[0]), reverse=True)
+
+    for abbrev, expansion in sorted_abbrevs:
+        # Use word boundary matching
+        pattern = r'\b' + re.escape(abbrev) + r'\b'
+        text = re.sub(pattern, expansion, text)
+
+    return text
+
+
+def expand_abbreviations_in_tokens(tokens: list) -> list:
+    """Expand abbreviations in a list of tokens."""
+    return [MEDICAL_ABBREVIATIONS.get(tok, tok) for tok in tokens]

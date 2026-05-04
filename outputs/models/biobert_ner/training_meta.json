@@ -1,0 +1,23 @@
+{
+  "config": {
+    "model_name": "dmis-lab/biobert-base-cased-v1.2",
+    "max_length": 64,
+    "batch_size": 32,
+    "epochs": 3,
+    "lr": 0.0003,
+    "warmup_ratio": 0.1,
+    "weight_decay": 0.01,
+    "max_train_samples": 2000,
+    "freeze_base": true
+  },
+  "train_losses": [
+    0.5383936143110669,
+    0.10909175399749999,
+    0.06230295662369047
+  ],
+  "val_losses": [
+    0.16507976735010743,
+    0.12346347444690764,
+    0.10136305098421872
+  ]
+}

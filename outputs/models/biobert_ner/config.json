@@ -1,0 +1,51 @@
+{
+  "_name_or_path": "dmis-lab/biobert-base-cased-v1.2",
+  "architectures": [
+    "BertForTokenClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "classifier_dropout": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "id2label": {
+    "0": "O",
+    "1": "B-DISEASE",
+    "2": "I-DISEASE",
+    "3": "B-SYMPTOM",
+    "4": "I-SYMPTOM",
+    "5": "B-DRUG",
+    "6": "I-DRUG",
+    "7": "B-PROCEDURE",
+    "8": "I-PROCEDURE",
+    "9": "B-ANATOMY",
+    "10": "I-ANATOMY"
+  },
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "label2id": {
+    "B-ANATOMY": 9,
+    "B-DISEASE": 1,
+    "B-DRUG": 5,
+    "B-PROCEDURE": 7,
+    "B-SYMPTOM": 3,
+    "I-ANATOMY": 10,
+    "I-DISEASE": 2,
+    "I-DRUG": 6,
+    "I-PROCEDURE": 8,
+    "I-SYMPTOM": 4,
+    "O": 0
+  },
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "torch_dtype": "float32",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 28996
+}
